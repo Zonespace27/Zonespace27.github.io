@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Title</title>
+    <title>Hole Of Words</title>
+    <style>
+        .audioPlayer {
+            border: 2px outset white;
+            background-color: rgb(101, 82, 158);
+            width: max-content;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/f1b2d2e409.js" crossorigin="anonymous"></script>
+    <script>
+        function playMusic() {
+            let music_player = document.getElementById("supplementaryMusic")
+            if(music_player.paused) {
+                music_player.play()
+            } else {
+                music_player.pause()
+            }
+        }
+    </script>
 </head>
 
 <body>
-Body
+    <h1 style="text-align: center;">
+        Something witty here
+    </h1>
+    <hr />
+    <div class="audioPlayer">
+        <p><b>
+            <div title="Gunpoint OST - Melancholia">Supplementary Music</div>
+            <div style="justify-content: center; display: flex; align-items: center;">
+                <button class="fas fa-music" onclick="playMusic()"></button>
+                <audio id="supplementaryMusic">
+                    <source src="assets/audio/gunpoint_melancholia.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </b></p>
+    </div>
+    <br><br>
+    Electrical engineer with too much time on their hands<br>
+    There's not much here currently, but I update here occasionally, so check later in case I do<br>
+    In the meantime, catch me <a href="https://steamcommunity.com/id/Zonespace27/">here</a> or <a href="https://github.com/zonespace27">here</a>.
 </body>
 
 </html>
