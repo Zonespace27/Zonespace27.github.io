@@ -14,7 +14,7 @@ function includeHTML() {
             includeHTML();
           }
         }
-        x.open("GET", file, true);
+        x.open("GET", f, true);
         x.send();
         return;
       }
