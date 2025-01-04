@@ -1,5 +1,8 @@
 var SaveTree = {};
 
+// Format guide:
+// When referring to player actions, use "the player", not "you".
+// When refering to global events (such as loading the game), use "the save"
 const ExplanationDict = {
   dullvessel_position:
     'The current location of the Dull Vessel. Accepts "ocean" and "orbit", leading to Their Waters and The Void, respectively.',
@@ -7,6 +10,12 @@ const ExplanationDict = {
   mask: 'The currently worn mask. Accepts "reality", "unity", and "hunger", corresponding to their relevant masks.',
   ran_e2a2_fix:
     "If this save has completed any dialogue. Used as a flag to patch a bug originating from EP2ADD2.",
+  realcyst_examined:
+    "A flag used in EP0 to determine if the player has examined the cyst, necessary for progression.",
+  realcyst_touched:
+    "A flag used in EP0 to determine if the player has touched the cyst, necessary for progression.",
+  realcyst_scanned:
+    "A flag used in EP0 to determine if the player has scanned the cyst, necessary for progression.",
 };
 
 function OnLoad() {
@@ -242,7 +251,7 @@ function ExportData() {
   document.body.removeChild(DownloadDummyObject);
 }
 
-/*
+/* Apparently mobile zoom has an issue with <details>/<summary> objects on some browsers but i can't repro it so this is staying commented out for now
 window.addEventListener('load', () => {
     document.querySelectorAll('summary').forEach(summary => {
         summary.style.display = 'none';
