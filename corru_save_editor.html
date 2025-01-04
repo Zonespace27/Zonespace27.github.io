@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>corru.observer Save Editor</title>
+    <script type="text/javascript" src="js/corrusave.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lz-string"></script>
+    <link rel="stylesheet" href="styledata.css" />
+  </head>
+  <body>
+    <div id="saveinput">
+      <label for="savefile_input">Select save.corru</label>
+      <br />
+      <input
+        type="file"
+        id="savefile_input"
+        name="savefile_input"
+        accept=".corru"
+      />
+      <br />
+      <label for="savetext_input">Or input savestring</label>
+      <br />
+      <input type="text" id="savetext_input" name="savetext_input" size="50" />
+      <button
+        onclick="ParseText(document.getElementById('savetext_input').value)"
+      >
+        Enter
+      </button>
+    </div>
+    <div id="savedata_topbar" style="display: none">
+      <button onclick="ExportData()">Export</button>
+      <button onclick="Reset()">Reset</button>
+    </div>
+    <div id="savedata_display" style="white-space: pre-line"></div>
+    <div
+      style="
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        padding-bottom: 10px;
+        padding-right: 10px;
+      "
+    >
+      Created by <a href="index.html">Zonespace</a>
+    </div>
+  </body>
+  <script>
+    OnLoad();
+  </script>
+</html>

@@ -2,3 +2,9 @@ body {
   background-color: #121212;
   color: #d8d8e3;
 }
+
+.outlinebox {
+  border: 1px dotted white;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
