@@ -3,29 +3,32 @@ var SaveTree = {};
 const ExplanationDict = {
   dullvessel_position:
     'The current location of the Dull Vessel. Accepts "ocean" and "orbit", leading to Their Waters and The Void, respectively.',
+  lastload: "The Unix timestamp when this save last loaded corru.observer.",
+  mask: 'The currently worn mask. Accepts "reality", "unity", and "hunger", corresponding to their relevant masks.',
+  ran_e2a2_fix:
+    "If this save has completed any dialogue. Used as a flag to patch a bug originating from EP2ADD2.",
 };
 
 function OnLoad() {
-  document
-    .getElementById("savefile_input")
-    .addEventListener("change", function (event) {
-      let File = event.target.files[0];
-      if (File) {
-        let Reader = new FileReader();
+  let InputElement = document.getElementById("savefile_input");
+  InputElement.addEventListener("change", function (event) {
+    let File = event.target.files[0];
+    if (File) {
+      let Reader = new FileReader();
 
-        Reader.onload = function (e) {
-          ParseText(e.target.result);
-        };
+      Reader.onload = function (e) {
+        ParseText(e.target.result);
+      };
 
-        Reader.onerror = function (e) {
-          console.error("Error reading file:", e.target.error);
-        };
+      Reader.onerror = function (e) {
+        console.error("Error reading file:", e.target.error);
+      };
 
-        Reader.readAsText(File);
-      } else {
-        console.log("No file selected");
-      }
-    });
+      Reader.readAsText(File);
+    } else {
+      console.log("No file selected");
+    }
+  });
 }
 
 function Reset() {
@@ -238,3 +241,13 @@ function ExportData() {
   DownloadDummyObject.click();
   document.body.removeChild(DownloadDummyObject);
 }
+
+/*
+window.addEventListener('load', () => {
+    document.querySelectorAll('summary').forEach(summary => {
+        summary.style.display = 'none';
+        summary.offsetHeight; // Trigger reflow
+        summary.style.display = '';
+    });
+});
+*/
