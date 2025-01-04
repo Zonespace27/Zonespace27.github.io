@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>corru.observer Save Editor</title>
+    <title>Save Editor</title>
     <script type="text/javascript" src="js/corrusave.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lz-string"></script>
+    <script type="text/javascript" src="js/includehtml.js"></script>
     <link rel="stylesheet" href="styledata.css" />
   </head>
   <body>
+    <h1 style="text-align: center">corru.observer Save Editor</h1>
+    <hr />
+    <div include-html="heading.html"></div>
     <div id="saveinput">
       Use at your own risk, make a backup of your original save. Please do not
       bug corrudev about bugs pertaining to modified savefiles.
@@ -102,6 +106,7 @@
     </div>
   </body>
   <script>
+    includeHTML();
     OnLoad();
   </script>
 </html>
