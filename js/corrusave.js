@@ -1,5 +1,9 @@
 var SaveTree = {};
 
+var CreateKeySaveTreePart;
+var CreateKeyRecursionLevel = 0;
+var CreateKeyDisplay;
+
 // Format guide:
 // When referring to player actions, use "the player", not "you".
 // When refering to global events (such as loading the game), use "the save"
@@ -40,9 +44,88 @@ function OnLoad() {
   });
 }
 
+function OpenCreateKeyPopup(SaveTreePart, Display, RecursionLevel) {
+  document.getElementById("createkey_popup").style.display = "inline";
+  CreateKeySaveTreePart = SaveTreePart;
+  CreateKeyDisplay = Display;
+  CreateKeyRecursionLevel = RecursionLevel;
+}
+
+function CloseCreateKeyPopup() {
+  document.getElementById("createkey_popup").style.display = "none";
+  CreateKeySaveTreePart = null;
+  CreateKeyDisplay = null;
+  CreateKeyRecursionLevel = 0;
+}
+
+function AdjustCreateKeyInput() {
+  let Input = document.getElementById("keyvalue_input");
+  let Dropdown = document.getElementById("savevalue_type");
+  switch (Dropdown.value) {
+    case "text":
+      Input.type = "text";
+      Input.value = "";
+      break;
+    case "number":
+      Input.type = "number";
+      Input.value = 0;
+      break;
+    case "boolean":
+      Input.type = "checkbox";
+      Input.value = false;
+      break;
+  }
+}
+
+function CreateKeyInput() {
+  let Key = document.getElementById("keyname_input");
+  let Value = document.getElementById("keyvalue_input");
+  if (!Key.value || !Value.value) {
+    return;
+  }
+  CreateKeySaveTreePart[Key.value] = Value.value;
+  console.log(CreateKeySaveTreePart);
+  RecursiveSavePrintout(
+    Key.value,
+    Value.value,
+    CreateKeyDisplay,
+    CreateKeyRecursionLevel + 1,
+    CreateKeySaveTreePart
+  );
+
+  let DisplayChildren = Array.from(CreateKeyDisplay.children);
+  DisplayChildren.sort((a, b) => {
+    let A = a.getAttribute("DataType");
+    let B = b.getAttribute("DataType");
+
+    if (!A) {
+      let Index = DisplayChildren.indexOf(A);
+      if (Index > -1) {
+        DisplayChildren.splice(Index, 1);
+      }
+      return;
+    }
+
+    if (!B) {
+      let Index = DisplayChildren.indexOf(B);
+      if (Index > -1) {
+        DisplayChildren.splice(Index, 1);
+      }
+      return;
+    }
+
+    return A.localeCompare(B);
+  });
+
+  DisplayChildren.forEach((Child) => CreateKeyDisplay.appendChild(Child));
+
+  alert(`Key ${Key.value} created with value ${Value.value}`);
+  CloseCreateKeyPopup();
+}
+
 function Reset() {
   // simple, easy way
-  location.reload();
+  location.reload(true);
 }
 
 /**
@@ -130,7 +213,19 @@ function RecursiveSavePrintout(
     let ContainedDetails = document.createElement("details");
     let ContainedSummary = document.createElement("summary");
     ContainedSummary.textContent = DataKey;
+
+    let CreateNewKeyButton = document.createElement("button");
+    CreateNewKeyButton.textContent = "Create New Entry";
+    CreateNewKeyButton.onclick = function () {
+      OpenCreateKeyPopup(
+        SaveTreePart[DataKey],
+        ContainedDetails,
+        RecursionLevel
+      );
+    };
+
     ContainedDetails.appendChild(ContainedSummary);
+    ContainedDetails.appendChild(CreateNewKeyButton);
     ContainingBox.appendChild(ContainedDetails);
     Display.appendChild(ContainingBox);
 
@@ -156,7 +251,20 @@ function RecursiveSavePrintout(
     let ContainedDetails = document.createElement("details");
     let ContainedSummary = document.createElement("summary");
     ContainedSummary.textContent = DataKey;
+
+    let CreateNewKeyButton = document.createElement("button");
+    CreateNewKeyButton.textContent = "Create New Entry";
+    CreateNewKeyButton.style.marginLeft = `${10 * (RecursionLevel + 1)}px`;
+    CreateNewKeyButton.onclick = function () {
+      OpenCreateKeyPopup(
+        SaveTreePart[DataKey],
+        ContainedDetails,
+        RecursionLevel
+      );
+    };
+
     ContainedDetails.appendChild(ContainedSummary);
+    ContainedDetails.appendChild(CreateNewKeyButton);
     ContainingBox.appendChild(ContainedDetails);
     Display.appendChild(ContainingBox);
 

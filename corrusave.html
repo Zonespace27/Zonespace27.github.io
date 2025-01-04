@@ -33,6 +33,11 @@
     <div id="savedata_topbar" style="display: none">
       <button onclick="ExportData()">Export</button>
       <button onclick="Reset()">Reset</button>
+      <button
+        onclick="OpenCreateKeyPopup(SaveTree, document.getElementById('savedata_display'), -1)"
+      >
+        Create New Entry (Base)
+      </button>
     </div>
     <div id="savedata_display" style="white-space: pre-line"></div>
     <div
@@ -45,6 +50,55 @@
       "
     >
       Created by <a href="index.html">Zonespace</a>
+    </div>
+    <div
+      style="
+        position: fixed;
+        left: 50%;
+        transform: translate(-50%, -30%);
+        top: 30%;
+        padding-top: 10px;
+        padding-left: 8px;
+        padding-right: 8px;
+        background-color: gray;
+        display: none;
+        border-radius: 8px;
+      "
+      id="createkey_popup"
+    >
+      <input type="text" id="keyname_input" placeholder="Enter Key Name" />
+      <label for="savevalue_type" style="color: black"
+        >Select a value type:</label
+      >
+      <select
+        name="savevalue_type"
+        id="savevalue_type"
+        onchange="AdjustCreateKeyInput()"
+      >
+        <option value="text" selected>Text</option>
+        <option value="number">Number</option>
+        <option value="boolean">Boolean</option>
+      </select>
+      <input
+        type="text"
+        id="keyvalue_input"
+        placeholder="Enter Default Value"
+      />
+      <br />
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          padding-top: 8px;
+          padding-bottom: 8px;
+        "
+      >
+        <button style="margin-right: 12px" onclick="CreateKeyInput()">
+          Enter</button
+        ><button style="margin-left: 12px" onclick="CloseCreateKeyPopup()">
+          Cancel
+        </button>
+      </div>
     </div>
   </body>
   <script>
